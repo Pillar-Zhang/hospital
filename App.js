@@ -6,24 +6,19 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import React, { Component } from "react";
+import { Platform, StyleSheet, Text, View } from "react-native";
+import { Button } from "antd-mobile-rn";
 
 type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>电子病历</Text>
-        <Text style={styles.instructions}>小栋同学</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <Text style={styles.appName}>电子病历</Text>
+        <Text style={styles.welcome}>欢迎使用电子病历应用</Text>
+        <Button style={styles.start}>开始</Button>
+        <Text style={styles.instructions}>power by 小栋同学</Text>
       </View>
     );
   }
@@ -32,18 +27,33 @@ export default class App extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#77ac98"
+  },
+  appName: {
+    fontSize: 40,
+    color: "#ffffff",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  start: {
+    marginTop: 40,
+    height: 36,
+    width: 120
   },
   welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    fontSize: 14,
+    textAlign: "center",
+    color: "white",
+    marginTop: 30
   },
   instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    textAlign: "center",
+    color: "black",
+    marginTop: 15,
+    position: "absolute",
+    bottom: 0,
+    lineHeight: 40
+  }
 });
