@@ -6,7 +6,7 @@ type Props = {};
 
 export default class WelcomeScreen extends React.Component {
   static navigationOptions = {
-    title: "电子病历欢迎你"
+    title: "欢迎你"
   };
   render() {
     const { navigate } = this.props.navigation;
