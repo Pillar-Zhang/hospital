@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View, StyleSheet } from "react-native";
 import { Grid } from "antd-mobile-rn";
 
 const data = Array.from(new Array(9)).map((_val, i) => ({
@@ -7,7 +7,17 @@ const data = Array.from(new Array(9)).map((_val, i) => ({
   text: `Name${i}`
 }));
 
+const styles = StyleSheet.create({
+  iconfont: {
+    fontFamily: "iconfont",
+    color: "red",
+    fontSize: 30
+  }
+});
 export default class BasicGridExample extends React.Component<any, any> {
+  onclickMedicalItem = (index: number) => {
+    console.log(index);
+  };
   render() {
     return (
       <ScrollView>
@@ -15,7 +25,7 @@ export default class BasicGridExample extends React.Component<any, any> {
           <Text>健康档案</Text>
         </View>
         <View style={[{ padding: 10 }]}>
-          <Grid data={data} hasLine={false} />
+          <Text style={[styles.iconfont as any]}>&#xe666;</Text>
         </View>
 
         <View style={[{ margin: 10 }]}>
@@ -25,7 +35,7 @@ export default class BasicGridExample extends React.Component<any, any> {
           data={data}
           columnNum={3}
           isCarousel
-          onClick={(_el: any, index: any) => alert(index)}
+          onClick={(_el: any, index: any) => this.onclickMedicalItem}
         />
         <View style={[{ margin: 10 }]}>
           <Text>处方管理</Text>
