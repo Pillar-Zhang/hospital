@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import { Button } from "antd-mobile-rn";
 import Drawer from "./Drawer";
+import BasicGridExample from "./components/IndexList";
 
 export default class HomeScreen extends React.Component {
   constructor() {
@@ -39,11 +40,14 @@ export default class HomeScreen extends React.Component {
           </Button>
           <Text style={styles.userInfo}>欢迎xxx来到电子病历</Text>
         </View>
-        <Drawer
-          showDrawer={showDrawer}
-          openDrawer={this.openDrawer}
-          closeDrawer={this.closeDrawer}
-        />
+        {!showDrawer && <BasicGridExample />}
+        {showDrawer && (
+          <Drawer
+            showDrawer={showDrawer}
+            openDrawer={this.openDrawer}
+            closeDrawer={this.closeDrawer}
+          />
+        )}
         <Button onClick={() => navigate("Welcome", { name: "Welcome" })}>
           {"返回 welcome"}
         </Button>
