@@ -5,6 +5,12 @@ import { Drawer, List, WhiteSpace } from "antd-mobile-rn";
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    top: 40,
+    left: 0,
+    flexDirection: "row"
+  },
+  drawerStyle: {
     flex: 1
   },
   drawerButton: {
@@ -46,24 +52,32 @@ export default class DrawerExample extends React.Component<DrawerProps, any> {
 
     // Todo: https://github.com/DefinitelyTyped/DefinitelyTyped
     const sidebar = (
-      <ScrollView style={[styles.container as any]}>
+      <ScrollView style={[styles.drawerStyle as any]}>
         <List>{itemArr}</List>
       </ScrollView>
     );
-
+    const open = this.props.showDrawer;
     return (
-      <Drawer
-        sidebar={sidebar}
-        position="left"
-        open={this.props.showDrawer}
-        drawerRef={(el: any) => (this.drawer = el)}
-        onOpenChange={this.onOpenChange}
-        drawerBackgroundColor="#ccc"
+      <View
+        style={[
+          Object.assign({}, styles.container, {
+            position: open ? "absolute" : ""
+          }) as any
+        ]}
       >
-        <View style={{ flex: 1, marginTop: 114, padding: 8 }}>
-          <WhiteSpace />
-        </View>
-      </Drawer>
+        <Drawer
+          sidebar={sidebar}
+          position="left"
+          open={open}
+          drawerRef={(el: any) => (this.drawer = el)}
+          onOpenChange={this.onOpenChange}
+          drawerBackgroundColor="#ccc"
+        >
+          <View style={{ flex: 1, height: 600, marginTop: 114, padding: 8 }}>
+            <WhiteSpace />
+          </View>
+        </Drawer>
+      </View>
     );
   }
 }

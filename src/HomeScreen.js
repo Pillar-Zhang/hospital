@@ -30,24 +30,17 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Button
-            type="primary"
-            size="small"
-            style={styles.drawerButton}
-            onClick={this.openDrawer}
-          >
-            开
-          </Button>
+          <Text onPress={this.openDrawer} style={styles.drawerButton}>
+            &#xe63c;
+          </Text>
           <Text style={styles.userInfo}>欢迎xxx来到电子病历</Text>
         </View>
-        {!showDrawer && <BasicGridExample />}
-        {showDrawer && (
-          <Drawer
-            showDrawer={showDrawer}
-            openDrawer={this.openDrawer}
-            closeDrawer={this.closeDrawer}
-          />
-        )}
+        <BasicGridExample />
+        <Drawer
+          showDrawer={showDrawer}
+          openDrawer={this.openDrawer}
+          closeDrawer={this.closeDrawer}
+        />
         <Button onClick={() => navigate("Welcome", { name: "Welcome" })}>
           {"返回 welcome"}
         </Button>
@@ -69,9 +62,12 @@ const styles = StyleSheet.create({
   },
   drawerButton: {
     width: 40,
-    paddingLeft: 6,
-    paddingRight: 6,
-    height: 40
+    height: 40,
+    fontFamily: "iconfont",
+    lineHeight: 40,
+    fontSize: 24,
+    marginLeft: 10,
+    color: "#ffffff"
   },
   userInfo: {
     height: 40,

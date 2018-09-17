@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
   iconfont: {
     fontFamily: "iconfont",
     color: "red",
-    fontSize: 30
+    fontSize: 30,
+    display: "flex"
   }
 });
 export default class BasicGridExample extends React.Component<any, any> {
@@ -24,7 +25,18 @@ export default class BasicGridExample extends React.Component<any, any> {
         <View style={[{ margin: 10 }]}>
           <Text>健康档案</Text>
         </View>
-        <View style={[{ padding: 10 }]}>
+        <View
+          style={[
+            {
+              padding: 10,
+              justifyContent: "space-between",
+              flexDirection: "row"
+            }
+          ]}
+        >
+          <Text style={[styles.iconfont as any]}>&#xe666;</Text>
+          <Text style={[styles.iconfont as any]}>&#xe666;</Text>
+          <Text style={[styles.iconfont as any]}>&#xe666;</Text>
           <Text style={[styles.iconfont as any]}>&#xe666;</Text>
         </View>
 
