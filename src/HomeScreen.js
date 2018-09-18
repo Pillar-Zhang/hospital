@@ -35,7 +35,7 @@ export default class HomeScreen extends React.Component {
           </Text>
           <Text style={styles.userInfo}>欢迎xxx来到电子病历</Text>
         </View>
-        <BasicGridExample />
+        <BasicGridExample navigate={navigate} />
         <Drawer
           showDrawer={showDrawer}
           openDrawer={this.openDrawer}
