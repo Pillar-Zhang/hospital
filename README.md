@@ -11,3 +11,7 @@ step2 : ios: react-native run-ios
 更新图标按钮： 下载 [iconfont](http://www.iconfont.cn/manage/index?manage_type=myprojects&projectId=839874) 的字体文件，添加 iconfont.ttr 到项目里面
 执行：react-native link react-native-vector-icons
 测试 test: npm run test
+
+## 踩坑
+
+修改项目目录结构容易产生找不到 组件 报错 ： rm -rf ios/build 清除缓存 重新构建
