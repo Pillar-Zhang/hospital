@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import { Button } from "antd-mobile-rn";
-import Drawer from "./Drawer";
-import BasicGridExample from "./components/IndexList";
+import Drawer from "../components/Drawer";
+import BasicGridExample from "../components/IndexList";
 
 export default class HomeScreen extends React.Component {
   constructor() {

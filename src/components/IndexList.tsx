@@ -54,6 +54,20 @@ export default class BasicGridExample extends React.Component<indexList, any> {
         >
           <View style={styles.CommonlyUsed}>
             <Text
+              onPress={this.props.navigate.bind(this, "CreateRecord")}
+              style={styles.iconfont}
+            >
+              &#xe7f3;
+            </Text>
+            <Text
+              onPress={this.props.navigate.bind(this, "Medical")}
+              style={styles.usedText}
+            >
+              新建病历
+            </Text>
+          </View>
+          <View style={styles.CommonlyUsed}>
+            <Text
               onPress={this.props.navigate.bind(this, "Medical")}
               style={styles.iconfont}
             >
@@ -66,10 +80,7 @@ export default class BasicGridExample extends React.Component<indexList, any> {
               管理病历
             </Text>
           </View>
-          <View style={styles.CommonlyUsed}>
-            <Text style={styles.iconfont}>&#xe7f3;</Text>
-            <Text style={styles.usedText}>健康档案</Text>
-          </View>
+
           <View style={styles.CommonlyUsed}>
             <Text style={styles.iconfont}>&#xe7cb;</Text>
             <Text style={styles.usedText}>化验记录</Text>
