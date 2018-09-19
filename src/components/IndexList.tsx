@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollView, Text, View, StyleSheet } from "react-native";
-import { Grid, Button } from "antd-mobile-rn";
+import { Grid } from "antd-mobile-rn";
 
 const data = Array.from(new Array(9)).map((_val, i) => ({
   icon: "https://os.alipayobjects.com/rmsportal/IptWdCkrtkAUfjE.png",
