@@ -36,11 +36,13 @@ export default class HomeScreen extends React.Component {
           <Text style={styles.userInfo}>欢迎xxx来到电子病历</Text>
         </View>
         <BasicGridExample navigate={navigate} />
-        <Drawer
-          showDrawer={showDrawer}
-          openDrawer={this.openDrawer}
-          closeDrawer={this.closeDrawer}
-        />
+        {
+          // <Drawer
+          //   showDrawer={showDrawer}
+          //   openDrawer={this.openDrawer}
+          //   closeDrawer={this.closeDrawer}
+          // />
+        }
         <Button onClick={() => navigate("Welcome", { name: "Welcome" })}>
           {"返回 welcome"}
         </Button>

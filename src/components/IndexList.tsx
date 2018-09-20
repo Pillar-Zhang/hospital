@@ -90,19 +90,21 @@ export default class BasicGridExample extends React.Component<indexList, any> {
             <Text style={styles.usedText}>药方统计</Text>
           </View>
         </View>
-        <View style={[{ margin: 10 }]}>
-          <Text>电子病历</Text>
-        </View>
-        <Grid
-          data={data}
-          columnNum={3}
-          isCarousel
-          onClick={(_el: any, index: any) => this.onclickMedicalItem}
-        />
-        <View style={[{ margin: 10 }]}>
-          <Text>处方管理</Text>
-        </View>
-        <Grid data={data} columnNum={3} itemStyle={{ height: 150 }} />
+        {
+          //   <View style={[{ margin: 10 }]}>
+          //   <Text>电子病历</Text>
+          // </View>
+          // <Grid
+          //   data={data}
+          //   columnNum={3}
+          //   isCarousel
+          //   onClick={(_el: any, index: any) => this.onclickMedicalItem}
+          // />
+          // <View style={[{ margin: 10 }]}>
+          //   <Text>处方管理</Text>
+          // </View>
+          // <Grid data={data} columnNum={3} itemStyle={{ height: 150 }} />
+        }
       </ScrollView>
     );
   }
