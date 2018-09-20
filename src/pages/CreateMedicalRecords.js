@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
-import { InputItem, Picker, List } from "antd-mobile-rn";
+import {
+  InputItem,
+  Picker,
+  List,
+  TextareaItem,
+  DatePicker,
+  ImagePicker,
+  WhiteSpace
+} from "antd-mobile-rn";
 
 const styles = StyleSheet.create({
   container: {
@@ -29,6 +37,18 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 40,
     marginRight: 50
+  },
+  TextareaView: {
+    flexDirection: "row",
+    marginTop: 15,
+    height: 150
+  },
+  Textarea: {
+    paddingTop: 10,
+    width: 200,
+    borderColor: "#21a2c4",
+    borderWidth: 1,
+    height: 100
   }
 });
 
@@ -39,7 +59,12 @@ export default class CreateMedicalRecords extends React.Component {
       userInfo: {
         name: "",
         sex: ["男"]
-      }
+      },
+      files: Array.from(new Array(5)).map((val, index) => ({
+        url: "https://zos.alipayobjects.com/rmsportal/WCxfiPKoDDHwLBM.png",
+        id: index
+      })),
+      selectFiles: []
     };
   }
   static navigationOptions = {
@@ -56,9 +81,15 @@ export default class CreateMedicalRecords extends React.Component {
       userInfo: newUserInfo
     });
   };
+
+  handleFileChange = () => {
+    const { selectFiles, files } = this.state;
+    this.setState({
+      selectFiles: [...selectFiles, files[0]]
+    });
+  };
   render() {
-    const { userInfo } = this.state;
-    console.log(userInfo["sex"]);
+    const { userInfo, selectFiles } = this.state;
     return (
       <ScrollView style={styles.container}>
         <View>
@@ -90,6 +121,15 @@ export default class CreateMedicalRecords extends React.Component {
           </Picker>
         </View>
         <View style={styles.row}>
+          <Text style={styles.name}>年龄：</Text>
+          <InputItem
+            value={userInfo["age"]}
+            style={styles.input}
+            onChange={value => this.onChangeUserInfo("age", value)}
+            placeholder="年龄"
+          />
+        </View>
+        <View style={styles.row}>
           <Text style={styles.name}>电话：</Text>
           <InputItem
             value={userInfo["phone"]}
@@ -99,21 +139,112 @@ export default class CreateMedicalRecords extends React.Component {
           />
         </View>
         <View style={styles.row}>
-          <Text style={styles.name}>身份证号：</Text>
-          <InputItem
-            value={userInfo["IDCard"]}
-            style={styles.input}
-            onChange={value => this.onChangeUserInfo("IDCard", value)}
-            placeholder="身份证号"
+          <Text style={styles.name}>就诊时间：</Text>
+          <DatePicker
+            value={userInfo["time"]}
+            mode="date"
+            title="选择时间"
+            minDate={new Date(2018, 1, 1)}
+            maxDate={new Date(2026, 12, 31)}
+            onChange={value => this.onChangeUserInfo("time", value)}
+            format="YYYY-MM-DD"
+          >
+            <List.Item
+              style={{ width: 250, textAlign: "center" }}
+              arrow="horizontal"
+            >
+              选择日期
+            </List.Item>
+          </DatePicker>
+        </View>
+        {
+          // <List.Item arrow="horizontal">Select Date</List.Item>
+        }
+        <View style={{ marginTop: 20 }}>
+          <Text style={styles.createTitle}>主诉</Text>
+        </View>
+        <View style={styles.TextareaView}>
+          <Text style={styles.name}>现病史：</Text>
+          <TextareaItem
+            rows={4}
+            count={100}
+            placeholder="请输入..."
+            style={styles.Textarea}
           />
         </View>
-        <View style={styles.row}>
-          <Text style={styles.name}>病名：</Text>
-          <InputItem
-            value={userInfo["DiseaseName"]}
-            style={styles.input}
-            onChange={value => this.onChangeUserInfo("DiseaseName", value)}
-            placeholder="病名"
+        <View style={styles.TextareaView}>
+          <Text style={styles.name}>既往史：</Text>
+          <TextareaItem
+            rows={4}
+            count={100}
+            placeholder="请输入..."
+            style={styles.Textarea}
+          />
+        </View>
+        <View style={styles.TextareaView}>
+          <Text style={styles.name}>望闻切诊：</Text>
+          <TextareaItem
+            rows={4}
+            count={100}
+            placeholder="请输入..."
+            autoHeight
+            style={styles.Textarea}
+          />
+        </View>
+        <View style={styles.TextareaView}>
+          <Text style={styles.name}>中医体质：</Text>
+          <TextareaItem
+            rows={4}
+            count={100}
+            placeholder="请输入..."
+            style={styles.Textarea}
+          />
+        </View>
+        <View style={styles.TextareaView}>
+          <Text style={styles.name}>中医诊断：</Text>
+          <TextareaItem
+            rows={4}
+            count={100}
+            placeholder="请输入..."
+            style={styles.Textarea}
+          />
+        </View>
+        <View style={styles.TextareaView}>
+          <Text style={styles.name}>辩证治疗：</Text>
+          <TextareaItem
+            rows={4}
+            count={100}
+            placeholder="请输入..."
+            style={styles.Textarea}
+          />
+        </View>
+        <View style={{ marginTop: 20 }}>
+          <Text style={styles.createTitle}>处方</Text>
+        </View>
+        <View style={Object.assign({}, styles.row, { height: 150 })}>
+          <Text style={styles.name}>处方用药：</Text>
+          <TextareaItem
+            rows={4}
+            count={100}
+            placeholder="请输入..."
+            style={styles.Textarea}
+          />
+        </View>
+        <View style={{ marginTop: 20 }}>
+          <Text style={styles.createTitle}>病情采集</Text>
+        </View>
+        <View
+          style={{
+            marginTop: 20,
+            flex: 1,
+            justifyContent: "space-between",
+            alignContent: "center"
+          }}
+        >
+          <ImagePicker
+            onAddImageClick={this.handleFileChange}
+            files={selectFiles}
+            multiple
           />
         </View>
       </ScrollView>

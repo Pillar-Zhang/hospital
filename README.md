@@ -30,9 +30,11 @@ step2 : ios: react-native run-ios/run-android
 更新图标按钮： 下载 [iconfont](http://www.iconfont.cn/manage/index?manage_type=myprojects&projectId=839874) 的字体文件，添加 iconfont.ttr 到项目里面
 执行：react-native link react-native-vector-icons
 
-debugger:
+macOs debugger:
 
-- $ REACT_DEBUGGER="open -g 'rndebugger://set-debugger-loc?port=8001' ||" react-native start 设置一次
+解决调试不方便 调试缓慢的问题
+
+- $ REACT_DEBUGGER="open -g 'rndebugger://set-debugger-loc?port=8001' ||" react-native start
 
 - $ open "rndebugger://set-debugger-loc?host=localhost&port=8081"
 
