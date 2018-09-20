@@ -38,7 +38,7 @@ export default class CreateMedicalRecords extends React.Component {
     this.state = {
       userInfo: {
         name: "",
-        sex: ["请选择"]
+        sex: ["男"]
       }
     };
   }

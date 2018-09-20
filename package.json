@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "rndebugger-open"
   },
   "dependencies": {
     "antd-mobile": "^2.2.5",
@@ -21,6 +22,7 @@
     "babel-plugin-import": "^1.8.0",
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.45.3",
+    "react-native-debugger-open": "^0.3.17",
     "react-test-renderer": "16.5.0"
   },
   "jest": {
