@@ -40,4 +40,4 @@ macOs debugger:
 
 ## 踩坑
 
-1.修改项目已经引用组件的目录结构容易产生找不到组件报错 ： rm -rf ios/build 清除缓存 重新构建
+1.修改项目已经引用组件的目录结构容易产生找不到组件报错 ： rm -rf ios/build 清除缓存 重新构建 2.安卓清除缓存 sudo ./gradlew clean 3.需要开启 cpu 的虚拟环境 解决 virtual device 闪退的问题
