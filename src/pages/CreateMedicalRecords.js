@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import { View, Text, ScrollView, StyleSheet, CameraRoll } from "react-native";
 import {
   InputItem,
   Picker,
@@ -9,7 +9,7 @@ import {
   ImagePicker,
   WhiteSpace
 } from "antd-mobile-rn";
-
+import userCameraList from "../components/userCameraList";
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#ffffff"
@@ -71,6 +71,7 @@ export default class CreateMedicalRecords extends React.Component {
         url: "https://zos.alipayobjects.com/rmsportal/WCxfiPKoDDHwLBM.png",
         id: index
       })),
+      photos: [],
       selectFiles: []
     };
   }
@@ -90,10 +91,37 @@ export default class CreateMedicalRecords extends React.Component {
   };
 
   handleFileChange = () => {
-    const { selectFiles, files } = this.state;
-    this.setState({
-      selectFiles: [...selectFiles, files[0]]
-    });
+    const { selectFiles, files, userInfo } = this.state;
+    const { navigate } = this.props.navigation;
+
+    console.log(CameraRoll, "CameraRoll");
+    CameraRoll.getPhotos({
+      first: 20,
+      assetType: "Photos"
+    })
+      .then(r => {
+        console.log(r.edges, "edges");
+        const { edges } = r;
+        const photos = [];
+        edges.forEach(edge => {
+          photos.push(edge.node.image);
+        });
+        console.log(photos, "photos");
+        this.setState(
+          {
+            userInfo: Object.assign({}, userInfo, { photos: photos })
+          },
+          () => {
+            navigate("cameraList", { data: photos });
+          }
+        );
+      })
+      .catch(err => {
+        //Error Loading Images
+      });
+    // this.setState({
+    //   selectFiles: [...selectFiles, files[0]]
+    // });
   };
 
   onSubmitForm = () => {
