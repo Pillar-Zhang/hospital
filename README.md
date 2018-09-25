@@ -27,6 +27,9 @@ step1 : npm install / yarn
 
 step2 : ios: react-native run-ios/run-android
 
+step3:copy 根目录下的 assets/iconfont.ttf 到 node_modules/ 下的 react-native-vector-icons fonts 下
+执行：react-native link react-native-vector-icons
+
 更新图标按钮： 下载 [iconfont](http://www.iconfont.cn/manage/index?manage_type=myprojects&projectId=839874) 的字体文件，添加 iconfont.ttr 到项目里面
 执行：react-native link react-native-vector-icons
 
