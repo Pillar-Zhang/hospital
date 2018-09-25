@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
   createTitle: {
     height: 40,
     lineHeight: 40,
-    backgroundColor: "#21a2c4",
     paddingLeft: 10,
     color: "#ffffff",
     letterSpacing: 1
@@ -49,6 +48,14 @@ const styles = StyleSheet.create({
     borderColor: "#21a2c4",
     borderWidth: 1,
     height: 100
+  },
+  saveForm: {
+    color: "#ffffff",
+    height: 40,
+    width: 40,
+    lineHeight: 40,
+    paddingRight: 10,
+    letterSpacing: 1
   }
 });
 
@@ -88,12 +95,25 @@ export default class CreateMedicalRecords extends React.Component {
       selectFiles: [...selectFiles, files[0]]
     });
   };
+
+  onSubmitForm = () => {
+    console.log(this.state.userInfo, "userInfo");
+  };
   render() {
     const { userInfo, selectFiles } = this.state;
     return (
       <ScrollView style={styles.container}>
-        <View>
+        <View
+          style={{
+            backgroundColor: "#21a2c4",
+            flexDirection: "row",
+            justifyContent: "space-between"
+          }}
+        >
           <Text style={styles.createTitle}>个人信息</Text>
+          <Text onPress={this.onSubmitForm} style={styles.saveForm}>
+            保存
+          </Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.name}>姓名：</Text>
@@ -169,6 +189,10 @@ export default class CreateMedicalRecords extends React.Component {
             rows={4}
             count={100}
             placeholder="请输入..."
+            value={userInfo["CurrentMedicalHistory"]}
+            onChange={value =>
+              this.onChangeUserInfo("CurrentMedicalHistory", value)
+            }
             style={styles.Textarea}
           />
         </View>
@@ -179,6 +203,8 @@ export default class CreateMedicalRecords extends React.Component {
             count={100}
             placeholder="请输入..."
             style={styles.Textarea}
+            value={userInfo["pastHistory"]}
+            onChange={value => this.onChangeUserInfo("pastHistory", value)}
           />
         </View>
         <View style={styles.TextareaView}>
@@ -189,6 +215,8 @@ export default class CreateMedicalRecords extends React.Component {
             placeholder="请输入..."
             autoHeight
             style={styles.Textarea}
+            value={userInfo["LookAround"]}
+            onChange={value => this.onChangeUserInfo("LookAround", value)}
           />
         </View>
         <View style={styles.TextareaView}>
@@ -198,6 +226,8 @@ export default class CreateMedicalRecords extends React.Component {
             count={100}
             placeholder="请输入..."
             style={styles.Textarea}
+            value={userInfo["TCMConstitution"]}
+            onChange={value => this.onChangeUserInfo("TCMConstitution", value)}
           />
         </View>
         <View style={styles.TextareaView}>
@@ -207,6 +237,8 @@ export default class CreateMedicalRecords extends React.Component {
             count={100}
             placeholder="请输入..."
             style={styles.Textarea}
+            value={userInfo["TCMDiagnosis"]}
+            onChange={value => this.onChangeUserInfo("TCMDiagnosis", value)}
           />
         </View>
         <View style={styles.TextareaView}>
@@ -216,6 +248,10 @@ export default class CreateMedicalRecords extends React.Component {
             count={100}
             placeholder="请输入..."
             style={styles.Textarea}
+            value={userInfo["DialecticalTreatment"]}
+            onChange={value =>
+              this.onChangeUserInfo("DialecticalTreatment", value)
+            }
           />
         </View>
         <View style={{ marginTop: 20 }}>
@@ -228,6 +264,10 @@ export default class CreateMedicalRecords extends React.Component {
             count={100}
             placeholder="请输入..."
             style={styles.Textarea}
+            value={userInfo["PrescriptionMedication"]}
+            onChange={value =>
+              this.onChangeUserInfo("PrescriptionMedication", value)
+            }
           />
         </View>
         <View style={{ marginTop: 20 }}>
