@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, ScrollView, StyleSheet, CameraRoll } from "react-native";
+import { View, Text, ScrollView, StyleSheet } from "react-native";
 import {
   InputItem,
   Picker,
@@ -109,32 +109,6 @@ export default class CreateMedicalRecords extends React.Component {
   handleFileChange = () => {
     const { selectFiles, files, userInfo } = this.state;
     const { navigate } = this.props.navigation;
-
-    // console.log(CameraRoll, "CameraRoll");
-    // CameraRoll.getPhotos({
-    //   first: 20,
-    //   assetType: "Photos"
-    // })
-    //   .then(r => {
-    //     console.log(r.edges, "edges");
-    //     const { edges } = r;
-    //     const photos = [];
-    //     edges.forEach(edge => {
-    //       photos.push(edge.node.image);
-    //     });
-    //     console.log(photos, "photos");
-    //     this.setState(
-    //       {
-    //         userInfo: Object.assign({}, userInfo, { photos: photos })
-    //       },
-    //       () => {
-    //         navigate("cameraList", { data: photos });
-    //       }
-    //     );
-    //   })
-    //   .catch(err => {
-    //     //Error Loading Images
-    //   });
     console.log("showImagePicker android");
     CameralImagePicker.showImagePicker(photoOptions, response => {
       console.log("Response = ", response);
@@ -147,12 +121,18 @@ export default class CreateMedicalRecords extends React.Component {
         console.log("User tapped custom button: ", response.customButton);
       } else {
         let source = { uri: response.uri };
-
+        console.log(response, "response");
         // You can also display the image using data:
         // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-
+        console.log(source, "source");
         this.setState({
-          avatarSource: source
+          selectFiles: [
+            ...selectFiles,
+            Object.assign({}, response, {
+              url: response.uri,
+              id: response.fileSize + "" + new Date().getTime()
+            })
+          ]
         });
       }
     });
@@ -165,6 +145,7 @@ export default class CreateMedicalRecords extends React.Component {
   };
   render() {
     const { userInfo, selectFiles } = this.state;
+    console.log(selectFiles, "selectFiles");
     return (
       <ScrollView style={styles.container}>
         <View
