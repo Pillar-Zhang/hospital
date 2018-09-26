@@ -2,7 +2,8 @@
 
 react-native 项目
 
-自己练手一个移动开发的项目(给我老婆开发的方便她工作) 医疗系统 软件。
+- 自己练手一个移动开发的项目(给我老婆开发的方便她工作) 医疗系统 软件。
+- 开始时间：2018:09:15
 
 ## 相关技术：
 
@@ -21,6 +22,7 @@ java? python? node? 还没有决定
 - [react-navigation](https://github.com/react-navigation/react-navigation)
 - [rn-mobile-ant-design](http://rn.mobile.ant.design/components/picker-cn/)
 - [react-native-debugger](https://github.com/jhen0409/react-native-debugger)
+- [react-native-image-picker](https://github.com/react-community/react-native-image-picker)
 
 **环境：**
 step1 : npm install / yarn
@@ -40,7 +42,10 @@ macOs debugger:
 - $ REACT_DEBUGGER="open -g 'rndebugger://set-debugger-loc?port=8001' ||" react-native start
 
 - $ open "rndebugger://set-debugger-loc?host=localhost&port=8081"
+- windows: set REACT_DEBUGGER="rndebugger-open --open --port 8081" && npm start
 
 ## 踩坑
 
-1.修改项目已经引用组件的目录结构容易产生找不到组件报错 ： rm -rf ios/build 清除缓存 重新构建 2.安卓清除缓存 sudo ./gradlew clean 3.需要开启 cpu 的虚拟环境 解决 virtual device 闪退的问题
+- 修改项目已经引用组件的目录结构容易产生找不到组件报错 ： rm -rf ios/build 清除缓存 重新构建
+- 安卓清除缓存 sudo ./gradlew clean
+- 需要开启 cpu 的虚拟环境 解决 virtual device 闪退的问题

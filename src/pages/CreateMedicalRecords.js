@@ -10,6 +10,21 @@ import {
   WhiteSpace
 } from "antd-mobile-rn";
 import userCameraList from "../components/userCameraList";
+import CameralImagePicker from "react-native-image-picker"; //第三方相机
+const photoOptions = {
+  //底部弹出框选项
+  title: "请选择",
+  cancelButtonTitle: "取消",
+  takePhotoButtonTitle: "拍照",
+  chooseFromLibraryButtonTitle: "选择相册",
+  quality: 0.75,
+  allowsEditing: true,
+  noData: false,
+  storageOptions: {
+    skipBackup: true,
+    path: "images"
+  }
+};
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#ffffff"
@@ -72,7 +87,8 @@ export default class CreateMedicalRecords extends React.Component {
         id: index
       })),
       photos: [],
-      selectFiles: []
+      selectFiles: [],
+      avatarSource: []
     };
   }
   static navigationOptions = {
@@ -94,34 +110,54 @@ export default class CreateMedicalRecords extends React.Component {
     const { selectFiles, files, userInfo } = this.state;
     const { navigate } = this.props.navigation;
 
-    console.log(CameraRoll, "CameraRoll");
-    CameraRoll.getPhotos({
-      first: 20,
-      assetType: "Photos"
-    })
-      .then(r => {
-        console.log(r.edges, "edges");
-        const { edges } = r;
-        const photos = [];
-        edges.forEach(edge => {
-          photos.push(edge.node.image);
+    // console.log(CameraRoll, "CameraRoll");
+    // CameraRoll.getPhotos({
+    //   first: 20,
+    //   assetType: "Photos"
+    // })
+    //   .then(r => {
+    //     console.log(r.edges, "edges");
+    //     const { edges } = r;
+    //     const photos = [];
+    //     edges.forEach(edge => {
+    //       photos.push(edge.node.image);
+    //     });
+    //     console.log(photos, "photos");
+    //     this.setState(
+    //       {
+    //         userInfo: Object.assign({}, userInfo, { photos: photos })
+    //       },
+    //       () => {
+    //         navigate("cameraList", { data: photos });
+    //       }
+    //     );
+    //   })
+    //   .catch(err => {
+    //     //Error Loading Images
+    //   });
+    console.log("showImagePicker android");
+    CameralImagePicker.showImagePicker(photoOptions, response => {
+      console.log("Response = ", response);
+
+      if (response.didCancel) {
+        console.log("User cancelled image picker");
+      } else if (response.error) {
+        console.log("ImagePicker Error: ", response.error);
+      } else if (response.customButton) {
+        console.log("User tapped custom button: ", response.customButton);
+      } else {
+        let source = { uri: response.uri };
+
+        // You can also display the image using data:
+        // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+        this.setState({
+          avatarSource: source
         });
-        console.log(photos, "photos");
-        this.setState(
-          {
-            userInfo: Object.assign({}, userInfo, { photos: photos })
-          },
-          () => {
-            navigate("cameraList", { data: photos });
-          }
-        );
-      })
-      .catch(err => {
-        //Error Loading Images
-      });
-    // this.setState({
-    //   selectFiles: [...selectFiles, files[0]]
-    // });
+      }
+    });
+
+    // end
   };
 
   onSubmitForm = () => {
