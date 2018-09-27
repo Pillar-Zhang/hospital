@@ -1,5 +1,7 @@
 # hospital
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0fe170c42b214b34aa8bae72996b266d)](https://app.codacy.com/app/DarrenLuo/hospital?utm_source=github.com&utm_medium=referral&utm_content=Pillar-Zhang/hospital&utm_campaign=Badge_Grade_Dashboard)
+
 react-native 项目
 
 - 自己练手一个移动开发的项目(给我老婆开发的方便她工作) 医疗系统 软件。
