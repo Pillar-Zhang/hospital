@@ -64,6 +64,14 @@ export default class MedicalRecords extends Component {
   clear = () => {
     this.setState({ value: "" });
   };
+
+  onDeleteMedicalItem = () => {
+    console.log("delete");
+  };
+
+  onSearchItem = name => {
+    console.log(name, "search");
+  };
   render() {
     return (
       <ScrollView>
@@ -74,21 +82,25 @@ export default class MedicalRecords extends Component {
           <SearchBar
             value={this.state.value}
             placeholder="搜索"
-            onSubmit={(value: any) => Alert.alert(value)}
+            onSubmit={value => this.onSearchItem(value)}
             onCancel={this.clear}
             onChange={this.onChange}
             showCancelButton
           />
           <View style={styles.listContainer}>
             {Array.from(new Array(20)).map((val, index) => {
-              console.log(index, "index");
               return (
                 <View key={index} style={styles.medicalItem}>
                   <Text style={styles.medicalItemName}>
                     病历
                     {index}
                   </Text>
-                  <Text style={styles.actionDelete}>删除</Text>
+                  <Text
+                    onPress={this.onDeleteMedicalItem}
+                    style={styles.actionDelete}
+                  >
+                    删除
+                  </Text>
                 </View>
               );
             })}
