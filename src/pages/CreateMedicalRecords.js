@@ -11,6 +11,8 @@ import {
 } from "antd-mobile-rn";
 import userCameraList from "../components/userCameraList";
 import CameralImagePicker from "react-native-image-picker"; //第三方相机
+import { PostMedical } from "../service/Api";
+import uuid from "../Utils.js/uuid";
 const photoOptions = {
   //底部弹出框选项
   title: "请选择",
@@ -80,15 +82,9 @@ export default class CreateMedicalRecords extends React.Component {
     this.state = {
       userInfo: {
         name: "",
-        sex: ["男"]
-      },
-      files: Array.from(new Array(5)).map((val, index) => ({
-        url: "https://zos.alipayobjects.com/rmsportal/WCxfiPKoDDHwLBM.png",
-        id: index
-      })),
-      photos: [],
-      selectFiles: [],
-      avatarSource: []
+        sex: ["男"],
+        photos: []
+      }
     };
   }
   static navigationOptions = {
@@ -107,7 +103,7 @@ export default class CreateMedicalRecords extends React.Component {
   };
 
   handleFileChange = () => {
-    const { selectFiles, files, userInfo } = this.state;
+    const { userInfo } = this.state;
     const { navigate } = this.props.navigation;
     console.log("showImagePicker android");
     CameralImagePicker.showImagePicker(photoOptions, response => {
@@ -126,22 +122,27 @@ export default class CreateMedicalRecords extends React.Component {
         // let source = { uri: 'data:image/jpeg;base64,' + response.data };
         console.log(source, "source");
         this.setState({
-          selectFiles: [
-            ...selectFiles,
-            Object.assign({}, response, {
-              url: response.uri,
-              id: response.fileSize + "" + new Date().getTime()
-            })
-          ]
+          userInfo: Object.assign({}, userInfo, {
+            photos: [
+              ...userInfo.photos,
+              {
+                url: response.uri,
+                id: uuid
+              }
+            ]
+          })
         });
       }
     });
-
-    // end
   };
 
   onSubmitForm = () => {
-    console.log(this.state.userInfo, "userInfo");
+    console.log("click submit");
+    const { userInfo } = this.state;
+    PostMedical(userInfo).then(data => {
+      console.log("success");
+      console.log(data, "data");
+    });
   };
   render() {
     const { userInfo, selectFiles } = this.state;
@@ -328,7 +329,7 @@ export default class CreateMedicalRecords extends React.Component {
         >
           <ImagePicker
             onAddImageClick={this.handleFileChange}
-            files={selectFiles}
+            files={userInfo["photos"]}
             multiple
           />
         </View>
