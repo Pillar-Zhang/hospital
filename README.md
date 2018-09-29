@@ -25,8 +25,11 @@ java? python? node? 还没有决定
 - [rn-mobile-ant-design](http://rn.mobile.ant.design/components/picker-cn/)
 - [react-native-debugger](https://github.com/jhen0409/react-native-debugger)
 - [react-native-image-picker](https://github.com/react-community/react-native-image-picker)
+- [react-native-device-info](https://github.com/rebeccahughes/react-native-device-info)
+- [lodash](https://github.com/lodash/lodash)
 
 **环境：**
+
 step1 : npm install / yarn
 
 step2 : ios: react-native run-ios/run-android
