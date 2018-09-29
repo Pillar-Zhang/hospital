@@ -11,7 +11,7 @@ import {
 } from "antd-mobile-rn";
 import userCameraList from "../components/userCameraList";
 import CameralImagePicker from "react-native-image-picker"; //第三方相机
-import { PostMedical } from "../service/Api";
+import { PostMedical, DeleMedicalById } from "../service/Api";
 import uuid from "../Utils.js/uuid";
 import DeviceInfo from "react-native-device-info";
 const photoOptions = {
@@ -152,7 +152,17 @@ export default class CreateMedicalRecords extends React.Component {
   };
 
   onChangeImage = (files, operationType, index) => {
-    console.log(files, operationType, index);
+    const { userInfo } = this.state;
+    const { photos } = userInfo;
+    if (operationType === "remove") {
+      newPhotos = [...photos];
+      newPhotos.splice(index, 1);
+      this.setState({
+        userInfo: Object.assign({}, userInfo, {
+          photos: newPhotos
+        })
+      });
+    }
   };
   render() {
     const { userInfo } = this.state;
