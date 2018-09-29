@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import { View, Text, ScrollView, StyleSheet, Alert } from "react-native";
 import {
   InputItem,
   Picker,
@@ -105,7 +105,11 @@ export default class CreateMedicalRecords extends React.Component {
 
   componentDidMount() {
     const deviceUniqueID = DeviceInfo.getUniqueID();
-    console.log(deviceUniqueID, "deviceUniqueID");
+    console.log(deviceUniqueID, "cretate");
+    const { userInfo } = this.state;
+    this.setState({
+      userInfo: Object.assign({}, userInfo, { deviceId: deviceUniqueID })
+    });
   }
 
   handleFileChange = () => {
@@ -145,10 +149,16 @@ export default class CreateMedicalRecords extends React.Component {
   onSubmitForm = () => {
     console.log("click submit");
     const { userInfo } = this.state;
-    PostMedical(userInfo).then(data => {
-      console.log("success");
-      console.log(data, "data");
-    });
+    PostMedical(userInfo)
+      .then(response => response.json())
+      .then(data => {
+        console.log("success");
+        console.log(data, "success data");
+      })
+      .catch(err => {
+        console.log(err, "err");
+        Alert.alert(err);
+      });
   };
 
   onChangeImage = (files, operationType, index) => {
@@ -256,9 +266,9 @@ export default class CreateMedicalRecords extends React.Component {
             rows={4}
             count={100}
             placeholder="请输入..."
-            value={userInfo["CurrentMedicalHistory"]}
+            value={userInfo["currentMedicalHistory"]}
             onChange={value =>
-              this.onChangeUserInfo("CurrentMedicalHistory", value)
+              this.onChangeUserInfo("currentMedicalHistory", value)
             }
             style={styles.Textarea}
           />
@@ -282,8 +292,8 @@ export default class CreateMedicalRecords extends React.Component {
             placeholder="请输入..."
             autoHeight
             style={styles.Textarea}
-            value={userInfo["LookAround"]}
-            onChange={value => this.onChangeUserInfo("LookAround", value)}
+            value={userInfo["lookAround"]}
+            onChange={value => this.onChangeUserInfo("lookAround", value)}
           />
         </View>
         <View style={styles.TextareaView}>
@@ -293,8 +303,8 @@ export default class CreateMedicalRecords extends React.Component {
             count={100}
             placeholder="请输入..."
             style={styles.Textarea}
-            value={userInfo["TCMConstitution"]}
-            onChange={value => this.onChangeUserInfo("TCMConstitution", value)}
+            value={userInfo["tcmConstitution"]}
+            onChange={value => this.onChangeUserInfo("tcmConstitution", value)}
           />
         </View>
         <View style={styles.TextareaView}>
@@ -304,8 +314,8 @@ export default class CreateMedicalRecords extends React.Component {
             count={100}
             placeholder="请输入..."
             style={styles.Textarea}
-            value={userInfo["TCMDiagnosis"]}
-            onChange={value => this.onChangeUserInfo("TCMDiagnosis", value)}
+            value={userInfo["tcmDiagnosis"]}
+            onChange={value => this.onChangeUserInfo("tcmDiagnosis", value)}
           />
         </View>
         <View style={styles.TextareaView}>
@@ -315,9 +325,9 @@ export default class CreateMedicalRecords extends React.Component {
             count={100}
             placeholder="请输入..."
             style={styles.Textarea}
-            value={userInfo["DialecticalTreatment"]}
+            value={userInfo["dialecticalTreatment"]}
             onChange={value =>
-              this.onChangeUserInfo("DialecticalTreatment", value)
+              this.onChangeUserInfo("dialecticalTreatment", value)
             }
           />
         </View>
@@ -331,9 +341,9 @@ export default class CreateMedicalRecords extends React.Component {
             count={100}
             placeholder="请输入..."
             style={styles.Textarea}
-            value={userInfo["PrescriptionMedication"]}
+            value={userInfo["prescriptionMedication"]}
             onChange={value =>
-              this.onChangeUserInfo("PrescriptionMedication", value)
+              this.onChangeUserInfo("prescriptionMedication", value)
             }
           />
         </View>

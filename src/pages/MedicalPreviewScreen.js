@@ -30,13 +30,17 @@ export default class MedicalPreview extends Component {
   };
   componentDidMount() {
     const { navigate } = this.props.navigation;
-    console.log(navigate, "navigate");
-    // GetMedicalById(medicalId).then(res => {
-    //   if (res.data)
-    //     this.setState({
-    //       info: res.data
-    //     });
-    // });
+    const { state } = this.props.navigation;
+    const medicalId = state.params.medicalId;
+    console.log(medicalId, "medicalId");
+    GetMedicalById(medicalId)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data, "GetMedicalById");
+        this.setState({
+          userInfo: data
+        });
+      });
   }
   onChangeUserInfo = (name, value) => {
     console.log(name, value);
@@ -47,6 +51,20 @@ export default class MedicalPreview extends Component {
     this.setState({
       userInfo: newUserInfo
     });
+  };
+
+  onChangeImage = (files, operationType, index) => {
+    const { userInfo } = this.state;
+    const { photos } = userInfo;
+    if (operationType === "remove") {
+      newPhotos = [...photos];
+      newPhotos.splice(index, 1);
+      this.setState({
+        userInfo: Object.assign({}, userInfo, {
+          photos: newPhotos
+        })
+      });
+    }
   };
 
   handleFileChange = () => {
@@ -85,7 +103,13 @@ export default class MedicalPreview extends Component {
 
   onSubmitForm = () => {
     const { info, update } = this.state;
+    const { userInfo } = this.state;
     if (!update) return this.setState({ update: true });
+    PutMedicalById(userInfo.id)
+      .then(response => response.json())
+      .then(res => {
+        console.log(res, "PutMedicalById");
+      });
     console.log(update, "update");
   };
   render() {
@@ -288,6 +312,7 @@ export default class MedicalPreview extends Component {
           <ImagePicker
             onAddImageClick={this.handleFileChange}
             files={userInfo["photos"]}
+            onChange={this.onChangeImage}
             multiple
           />
         </View>

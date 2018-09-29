@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Alert } from "react-native";
 import { SearchBar, List } from "antd-mobile-rn";
-import { GetAllMedicals } from "../service/Api";
+import { GetAllMedicals, DeleMedicalById } from "../service/Api";
+import DeviceInfo from "react-native-device-info";
 
 const Item = List.Item;
 // const Brief = Item.Brief;
@@ -53,14 +54,24 @@ export default class MedicalRecords extends Component {
     super();
     this.state = {
       value: "请输入查询病历名称",
-      medicalList: []
+      medicalList: [],
+      deviceId: ""
     };
   }
   componentDidMount() {
-    getAllMedicals().then(res => {
-      console.log(res.data);
-      if (res.data) this.setState({ medicalList: res.data });
-    });
+    const deviceUniqueID = DeviceInfo.getUniqueID();
+    console.log(deviceUniqueID, "getall");
+    GetAllMedicals(deviceUniqueID)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data, "data");
+        if (Array.isArray(data))
+          this.setState({ medicalList: data, deviceId: deviceUniqueID });
+      })
+      .catch(err => {
+        console.log(err, "err");
+        Alert.alert(err);
+      });
   }
   static navigationOptions = {
     title: "病历管理"
@@ -73,7 +84,23 @@ export default class MedicalRecords extends Component {
     this.setState({ value: "" });
   };
 
-  onDeleteMedicalItem = () => {
+  onDeleteMedicalItem = id => {
+    const { deviceId } = this.state;
+    console.log(id, "delete id");
+    DeleMedicalById(id)
+      .then(data => {
+        console.log(data, "DeleMedicalById");
+        return GetAllMedicals(deviceId)
+          .then(response => response.json())
+          .then(data2 => {
+            this.setState({ medicalList: data2 });
+            console.log(data2, "GetAllMedicals");
+          });
+      })
+      .catch(err => {
+        console.log(err, "err");
+        Alert.alert(err);
+      });
     console.log("delete");
   };
 
@@ -82,11 +109,10 @@ export default class MedicalRecords extends Component {
   };
   onClickMedicalItem = medicalId => {
     const { navigate } = this.props.navigation;
-    console.log(navigate, "navigate");
     navigate("MedicalPreview", { medicalId });
-    console.log(medicalId, "medicalId");
   };
   render() {
+    const { medicalList } = this.state;
     return (
       <ScrollView>
         <View style={styles.container}>
@@ -102,18 +128,17 @@ export default class MedicalRecords extends Component {
             showCancelButton
           />
           <View style={styles.listContainer}>
-            {Array.from(new Array(20)).map((val, index) => {
+            {medicalList.map((val, index) => {
               return (
                 <View key={index} style={styles.medicalItem}>
                   <Text
-                    onPress={this.onClickMedicalItem.bind(this, index)}
+                    onPress={this.onClickMedicalItem.bind(this, val.id)}
                     style={styles.medicalItemName}
                   >
-                    病历
-                    {index}
+                    {val.name}
                   </Text>
                   <Text
-                    onPress={this.onDeleteMedicalItem}
+                    onPress={this.onDeleteMedicalItem.bind(this, val.id)}
                     style={styles.actionDelete}
                   >
                     删除
