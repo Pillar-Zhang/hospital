@@ -4,7 +4,9 @@ import Realm from "realm";
 import uuid from "../Utils.js/uuid";
 import { isArray } from "lodash";
 //创建表
-let realm = new Realm({ schema: [MedicalModel] });
+Realm.open({ schema: [MedicalModel] }).then(realm => {
+  console.log(realm, "realm");
+});
 
 export const CreateMedical = data => {
   console.log("CreateMedical");

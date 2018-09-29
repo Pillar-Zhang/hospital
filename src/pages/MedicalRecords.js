@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
 import { SearchBar, List } from "antd-mobile-rn";
+import { GetAllMedicals } from "../service/Api";
 
 const Item = List.Item;
 // const Brief = Item.Brief;
@@ -51,8 +52,15 @@ export default class MedicalRecords extends Component {
   constructor() {
     super();
     this.state = {
-      value: "半夏"
+      value: "请输入查询病历名称",
+      medicalList: []
     };
+  }
+  componentDidMount() {
+    getAllMedicals().then(res => {
+      console.log(res.data);
+      if (res.data) this.setState({ medicalList: res.data });
+    });
   }
   static navigationOptions = {
     title: "病历管理"
@@ -71,6 +79,12 @@ export default class MedicalRecords extends Component {
 
   onSearchItem = name => {
     console.log(name, "search");
+  };
+  onClickMedicalItem = medicalId => {
+    const { navigate } = this.props.navigation;
+    console.log(navigate, "navigate");
+    navigate("MedicalPreview", { medicalId });
+    console.log(medicalId, "medicalId");
   };
   render() {
     return (
@@ -91,7 +105,10 @@ export default class MedicalRecords extends Component {
             {Array.from(new Array(20)).map((val, index) => {
               return (
                 <View key={index} style={styles.medicalItem}>
-                  <Text style={styles.medicalItemName}>
+                  <Text
+                    onPress={this.onClickMedicalItem.bind(this, index)}
+                    style={styles.medicalItemName}
+                  >
                     病历
                     {index}
                   </Text>
