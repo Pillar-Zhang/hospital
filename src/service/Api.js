@@ -1,14 +1,16 @@
 // import { CreateMedical, getAllMedical } from "../controller/MedicalControler";
 const baseUrl = "http://darrenluo.vaiwan.com:8081";
 export const PostMedical = data => {
-  let params = "?post=true";
-  if (data["photos"].length < 1) delete data.photos;
-  for (key in data) {
-    if (data[key]) params = params + `&${key}=${data[key]}`;
-  }
-  console.log(params, "params");
-  return fetch(`${baseUrl}/medicals${params}`, {
-    method: "POST"
+  // delete data.photos;
+ data.sex = Array.isArray(data.sex)?data.sex.join()||"男"
+  console.log(data, "get");
+  return fetch(`${baseUrl}/medicals`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
   });
 };
 
@@ -21,9 +23,15 @@ export const GetMedicalById = id => {
 };
 
 export const PutMedicalById = data => {
-  return fetch(`${baseUrl}/medicals/${data.id}`, {
+  data.sex = data.sex.join();
+  console.log(data, "put");
+  return fetch(`${baseUrl}/medicals`, {
     method: "PUT",
-    body: data
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
   });
 };
 

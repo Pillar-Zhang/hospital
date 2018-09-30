@@ -37,6 +37,7 @@ export default class MedicalPreview extends Component {
       .then(response => response.json())
       .then(data => {
         console.log(data, "GetMedicalById");
+        data.sex = [data.sex];
         this.setState({
           userInfo: data
         });
@@ -114,6 +115,7 @@ export default class MedicalPreview extends Component {
   };
   render() {
     const { userInfo, update } = this.state;
+    console.log(userInfo, "userInfo userInfo");
     return (
       <ScrollView style={styles.container}>
         <View
@@ -134,7 +136,6 @@ export default class MedicalPreview extends Component {
         <View style={styles.row}>
           <Text style={styles.name}>姓名：</Text>
           <InputItem
-            editable={update}
             value={userInfo["name"]}
             style={styles.input}
             onChange={value => this.onChangeUserInfo("name", value)}
@@ -161,8 +162,7 @@ export default class MedicalPreview extends Component {
           <Text style={styles.name}>年龄：</Text>
           <InputItem
             type="number"
-            disabled={!update}
-            value={userInfo["age"]}
+            value={userInfo["age"] + ""}
             style={styles.input}
             onChange={value => this.onChangeUserInfo("age", value)}
             placeholder="年龄"
@@ -171,7 +171,6 @@ export default class MedicalPreview extends Component {
         <View style={styles.row}>
           <Text style={styles.name}>电话：</Text>
           <InputItem
-            disabled={!update}
             type="phone"
             value={userInfo["phone"]}
             style={styles.input}
@@ -182,7 +181,7 @@ export default class MedicalPreview extends Component {
         <View style={styles.row}>
           <Text style={styles.name}>就诊时间：</Text>
           <DatePicker
-            value={userInfo["time"]}
+            value={new Date(userInfo["time"])}
             mode="date"
             title="选择时间"
             minDate={new Date(2018, 1, 1)}

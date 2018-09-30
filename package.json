@@ -10,6 +10,7 @@
   "dependencies": {
     "antd-mobile": "^2.2.5",
     "antd-mobile-rn": "^2.2.1",
+    "axios": "^0.18.0",
     "babel-preset-react-native": "^4.0.1",
     "lodash": "^4.17.11",
     "react": "16.5.0",
