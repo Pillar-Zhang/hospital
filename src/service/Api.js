@@ -1,4 +1,4 @@
-const baseUrl = "http://darrenluo.vaiwan.com:8081";
+const baseUrl = "http://111.231.115.37:8080";
 export const PostMedical = data => {
   // delete data.photos;
   data.sex = Array.isArray(data.sex) ? data.sex.join() : "男";
