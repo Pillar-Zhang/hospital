@@ -1,4 +1,3 @@
-// import { CreateMedical, getAllMedical } from "../controller/MedicalControler";
 const baseUrl = "http://darrenluo.vaiwan.com:8081";
 export const PostMedical = data => {
   // delete data.photos;

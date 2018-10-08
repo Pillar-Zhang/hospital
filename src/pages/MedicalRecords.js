@@ -70,7 +70,7 @@ export default class MedicalRecords extends Component {
       })
       .catch(err => {
         console.log(err, "err");
-        Alert.alert(err);
+        // Alert.alert(err);
       });
   }
   static navigationOptions = {
@@ -99,7 +99,7 @@ export default class MedicalRecords extends Component {
       })
       .catch(err => {
         console.log(err, "err");
-        Alert.alert(err);
+        // Alert.alert(err);
       });
     console.log("delete");
   };

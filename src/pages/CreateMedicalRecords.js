@@ -7,7 +7,8 @@ import {
   TextareaItem,
   DatePicker,
   ImagePicker,
-  WhiteSpace
+  WhiteSpace,
+  Button
 } from "antd-mobile-rn";
 import userCameraList from "../components/userCameraList";
 import CameralImagePicker from "react-native-image-picker"; //第三方相机
@@ -68,11 +69,16 @@ const styles = StyleSheet.create({
     height: 100
   },
   saveForm: {
-    color: "#ffffff",
     height: 40,
-    width: 40,
-    lineHeight: 40,
+    width: 80,
     paddingRight: 10,
+    backgroundColor: "#21a2c4",
+    borderColor: "transparent"
+  },
+  submitText: {
+    color: "#ffffff",
+    fontSize: 16,
+    lineHeight: 40,
     letterSpacing: 1
   }
 });
@@ -146,9 +152,16 @@ export default class CreateMedicalRecords extends React.Component {
     });
   };
 
+  checkInfoIntegrity = data => {
+    if (!data.name) return false;
+    return true;
+  };
+
   onSubmitForm = () => {
     console.log("click submit");
     const { userInfo } = this.state;
+    const integrity = this.checkInfoIntegrity(userInfo);
+    if (!integrity) return;
     PostMedical(userInfo)
       .then(response => response.json())
       .then(data => {
@@ -157,7 +170,7 @@ export default class CreateMedicalRecords extends React.Component {
       })
       .catch(err => {
         console.log(err, "err");
-        Alert.alert(err);
+        // Alert.alert(err);
       });
   };
 
@@ -186,9 +199,9 @@ export default class CreateMedicalRecords extends React.Component {
           }}
         >
           <Text style={styles.createTitle}>个人信息</Text>
-          <Text onPress={this.onSubmitForm} style={styles.saveForm}>
-            保存
-          </Text>
+          <Button onClick={this.onSubmitForm} style={styles.saveForm}>
+            <Text style={styles.submitText}>保存</Text>
+          </Button>
         </View>
         <View style={styles.row}>
           <Text style={styles.name}>姓名：</Text>

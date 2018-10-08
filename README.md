@@ -48,6 +48,9 @@ macOs debugger:
 
 - $ open "rndebugger://set-debugger-loc?host=localhost&port=8081"
 - windows: set REACT_DEBUGGER="rndebugger-open --open --port 8081" && npm start
+- 真机调试
+  在 iOS 上
+  打开”RCTWebSocketExecutor.m “文件，将“localhost”改为你的电脑的 ip，然后在 Developer Menu 下单击”Debug JS Remotely” 启动 JS 远程调试功能。
 
 ## 踩坑
 
