@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
         lineHeight: 40,
         paddingLeft: 10,
         color: "#ffffff",
-        letterSpacing: 1
+        letterSpacing: 1,
+        backgroundColor: "#21a2c4"
     },
     row: {
         flexDirection: "row",
@@ -273,7 +274,18 @@ export default class CreateMedicalRecords extends Component {
                   // <List.Item arrow="horizontal">Select Date</List.Item>
               }
               <View style={{ marginTop: 20 }}>
-                  <Text style={styles.createTitle}>主诉</Text>
+                  <Text style={styles.createTitle}>病情统计</Text>
+              </View>
+              <View style={styles.TextareaView}>
+                  <Text style={styles.name}>主诉：</Text>
+                  <TextareaItem
+                      rows={4}
+                      count={100}
+                      placeholder="请输入..."
+                      value={userInfo["ChiefComplaint"]}
+                      onChange={value => this.onChangeUserInfo("ChiefComplaint", value)}
+                      style={styles.Textarea}
+                  />
               </View>
               <View style={styles.TextareaView}>
                   <Text style={styles.name}>现病史：</Text>
@@ -363,7 +375,7 @@ export default class CreateMedicalRecords extends Component {
                   />
               </View>
               <View style={{ marginTop: 20 }}>
-                  <Text style={styles.createTitle}>病情采集</Text>
+                  <Text style={styles.createTitle}>图片采集</Text>
               </View>
               <View
                   style={{

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { GetMedicalById } from "../service/Api";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 import {
@@ -57,7 +58,7 @@ export default class MedicalPreview extends Component {
       const { userInfo } = this.state;
       const { photos } = userInfo;
       if (operationType === "remove") {
-          newPhotos = [...photos];
+          let newPhotos = [...photos];
           newPhotos.splice(index, 1);
           this.setState({
               userInfo: Object.assign({}, userInfo, {
@@ -200,7 +201,18 @@ export default class MedicalPreview extends Component {
                   // <List.Item arrow="horizontal">Select Date</List.Item>
               }
               <View style={{ marginTop: 20 }}>
-                  <Text style={styles.createTitle}>主诉</Text>
+                  <Text style={styles.createTitle}>病情统计</Text>
+              </View>
+              <View style={styles.TextareaView}>
+                  <Text style={styles.name}>主诉：</Text>
+                  <TextareaItem
+                      rows={4}
+                      count={100}
+                      placeholder="请输入..."
+                      value={userInfo["ChiefComplaint"]}
+                      onChange={value => this.onChangeUserInfo("ChiefComplaint", value)}
+                      style={styles.Textarea}
+                  />
               </View>
               <View style={styles.TextareaView}>
                   <Text style={styles.name}>现病史：</Text>
@@ -297,7 +309,7 @@ export default class MedicalPreview extends Component {
                   />
               </View>
               <View style={{ marginTop: 20 }}>
-                  <Text style={styles.createTitle}>病情采集</Text>
+                  <Text style={styles.createTitle}>图片采集</Text>
               </View>
               <View
                   style={{
@@ -318,6 +330,10 @@ export default class MedicalPreview extends Component {
       );
   }
 }
+
+MedicalPreview.propTypes = {
+    navigation: PropTypes.object
+};
 
 const photoOptions = {
     //底部弹出框选项
@@ -342,6 +358,7 @@ const styles = StyleSheet.create({
         lineHeight: 40,
         paddingLeft: 10,
         color: "#ffffff",
+        backgroundColor: "#21a2c4",
         letterSpacing: 1
     },
     row: {
