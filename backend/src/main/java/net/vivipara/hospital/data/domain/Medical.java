@@ -50,4 +50,6 @@ public class Medical {
 
     @UpdateTimestamp
     private LocalDateTime lastModifyTime;
+
+    private String chiefComplaint;
 }

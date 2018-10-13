@@ -36,4 +36,6 @@ public class MedicalDTO {
     private List<PhotoDTO> photos;
 
     private String deviceId;
+
+    private String chiefComplaint;
 }
