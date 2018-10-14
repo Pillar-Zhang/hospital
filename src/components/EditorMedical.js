@@ -12,6 +12,8 @@ import {
 } from "antd-mobile-rn";
 import CameralImagePicker from "react-native-image-picker"; //第三方相机
 import uuid from "../Utils.js/uuid";
+import { isDate } from "lodash";
+import { formDateByString } from "../Utils.js/stringToDate";
 const photoOptions = {
     //底部弹出框选项
     title: "请选择",
@@ -131,6 +133,10 @@ export default class EditorMedical extends React.Component {
   };
   render() {
       const { userInfo, onChangeUserInfo, onSubmitForm } = this.props;
+      const time = isDate(userInfo["time"])
+          ? userInfo["time"]
+          : formDateByString(userInfo["time"]);
+      console.log(time, "Time");
       return (
           <React.Fragment>
               <View
@@ -193,7 +199,7 @@ export default class EditorMedical extends React.Component {
               <View style={styles.row}>
                   <Text style={styles.name}>就诊时间：</Text>
                   <DatePicker
-                      value={userInfo["time"]}
+                      value={time}
                       mode="date"
                       title="选择时间"
                       minDate={new Date(2018, 1, 1)}
