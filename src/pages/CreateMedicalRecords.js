@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { ScrollView, StyleSheet, Alert } from "react-native";
 import EditorMedical from "../components/EditorMedical";
 import DeviceInfo from "react-native-device-info";
@@ -23,6 +24,10 @@ export default class CreateMedicalRecords extends Component {
     }
   static navigationOptions = {
       title: "新建病历"
+  };
+
+  static propTypes = {
+      navigation: PropTypes.object
   };
 
   onChangeUserInfo = (name, value) => {
@@ -55,6 +60,7 @@ export default class CreateMedicalRecords extends Component {
 
   onSubmitForm = () => {
       console.log("click submit");
+      const { navigation } = this.props;
       const { userInfo } = this.state;
       const integrity = this.checkInfoIntegrity(userInfo);
       if (!integrity) return;
@@ -63,6 +69,7 @@ export default class CreateMedicalRecords extends Component {
           .then(data => {
               console.log("success");
               console.log(data, "success data");
+              navigation.navigate("Home");
           })
           .catch(err => {
               console.log(err, "err");
