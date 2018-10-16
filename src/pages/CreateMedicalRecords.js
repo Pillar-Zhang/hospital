@@ -4,6 +4,8 @@ import { ScrollView, StyleSheet, Alert } from "react-native";
 import EditorMedical from "../components/EditorMedical";
 import DeviceInfo from "react-native-device-info";
 import { PostMedical } from "../service/Api";
+const deviceUniqueID = DeviceInfo.getUniqueID();
+console.log(deviceUniqueID, "cretate");
 
 const styles = StyleSheet.create({
     container: {
@@ -18,7 +20,8 @@ export default class CreateMedicalRecords extends Component {
             userInfo: {
                 name: "",
                 sex: ["男"],
-                photos: []
+                photos: [],
+                time: new Date()
             }
         };
     }
