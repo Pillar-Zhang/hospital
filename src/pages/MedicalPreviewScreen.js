@@ -53,7 +53,7 @@ export default class MedicalPreview extends Component {
   onSubmitForm = () => {
       const { update } = this.state;
       const { userInfo } = this.state;
-      PutMedicalById(userInfo.id)
+      PutMedicalById(userInfo.id, userInfo)
           .then(response => response.json())
           .then(res => {
               console.log(res, "PutMedicalById");

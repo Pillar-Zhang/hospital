@@ -21,9 +21,9 @@ export const GetMedicalById = id => {
     return fetch(`${baseUrl}/medicals/${id}`);
 };
 
-export const PutMedicalById = data => {
+export const PutMedicalById = (id, data) => {
     data.sex = Array.isArray(data.sex) ? data.sex.join() : "男";
-    console.log(data, "put");
+    console.log(data, "data put");
     return fetch(`${baseUrl}/medicals`, {
         method: "PUT",
         headers: {

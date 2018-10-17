@@ -12,7 +12,7 @@ import {
 } from "antd-mobile-rn";
 import CameralImagePicker from "react-native-image-picker"; //第三方相机
 import uuid from "../Utils.js/uuid";
-import { isDate } from "lodash";
+import { isDate, isNumber } from "lodash";
 import { formDateByString } from "../Utils.js/stringToDate";
 const photoOptions = {
     //底部弹出框选项
@@ -180,7 +180,9 @@ export default class EditorMedical extends React.Component {
                   <Text style={styles.name}>年龄：</Text>
                   <InputItem
                       type="number"
-                      value={userInfo["age"]}
+                      value={
+                          isNumber(userInfo["age"]) ? userInfo["age"] + "" : userInfo["age"]
+                      }
                       style={styles.input}
                       onChange={value => onChangeUserInfo("age", value)}
                       placeholder="年龄"
@@ -224,8 +226,8 @@ export default class EditorMedical extends React.Component {
                       rows={4}
                       count={100}
                       placeholder="请输入..."
-                      value={userInfo["ChiefComplaint"]}
-                      onChange={value => onChangeUserInfo("ChiefComplaint", value)}
+                      value={userInfo["chiefComplaint"]}
+                      onChange={value => onChangeUserInfo("chiefComplaint", value)}
                       style={styles.Textarea}
                   />
               </View>

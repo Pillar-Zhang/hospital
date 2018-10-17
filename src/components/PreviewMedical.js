@@ -116,7 +116,7 @@ export default class PreviewMedical extends React.Component {
               </View>
               <View style={styles.TextareaView}>
                   <Text style={styles.name}>主诉：</Text>
-                  <Text>{userInfo["ChiefComplaint"]}</Text>
+                  <Text>{userInfo["chiefComplaint"]}</Text>
               </View>
               <View style={styles.TextareaView}>
                   <Text style={styles.name}>现病史：</Text>
